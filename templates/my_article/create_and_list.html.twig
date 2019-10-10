@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MyArticleController!{% endblock %}
+
+{% block body %}
+    {% for article in articles %}
+        {% set new_title = article.title %}
+    {% endfor %}
+{% endblock %}

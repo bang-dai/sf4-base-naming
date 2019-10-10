@@ -1,25 +1,78 @@
-## source ##
+# Why #
+This project is just a sample to plan convention naming and code for PHP symfony 4 project built with docker.
 
-https://symfony.com/doc/current/best_practices.html
+# Config and params #
 
-## parameters ##
-* /config/services.yaml + .env
+## Parameters ##
+* /config/services.yaml + .env file
 * subdir for all parameters in /config/parameters/*.yaml
 
-## naming file ##
+## Naming yaml file ##
+Use Snake Case
 * yaml : name.yaml or name_xxx.yaml
-* twig : name.html.twig or name_xxx.html.twig
 
-## naming folder ##
-* only insde src : Kerner or EventSubscriber (PascalCase)
-* everywhere : minus
+## Naming folder ##
+* only inside src : Kerner or EventSubscriber (PascalCase)
+* everywhere : snake_case
 
-## naming constant vars ##
+# Code in PHP #
+
+## Naming constant vars ##
 * in env file : VARIABLE=xxx
 * in php const : public const VARIABLE = xxx
 
+## Naming PHP classes ##
+* PascalCase
 
-## services ##
+## Controllers ##
+* Thin controller using services
+* Inject service in constructor
+* Don't Use Annotations to Configure the Controller Template
 
+The @Template annotation is useful, but also involves some magic. Moreover, most of the time @Template is used without any parameters, which makes it more difficult to know which template is being rendered. It also hides the fact that a controller should always return a Response object.
+
+## Services ##
 * Make services private:
  to prevent you from accessing those services via $container->get(). Instead, you will need to use proper dependency injection.
+
+## Repository ##
+Separate database query (ORM/ODM) in this service.
+* Naming : MyArticleRepository
+
+## Form ##
+All form separate in EntityType, example:
+* MyArticleType
+
+# Twig #
+
+## Naming ##
+Use Snake Case for Template Names and Variables
+* twig : name.html.twig or name_xxx.html.twig
+
+Prefix Template Fragments with an Underscore
+* twig : _bloc.html.twig or _bloc_xxx.html.twig
+
+
+# Database management with doctrine #
+ 
+## Update database and migration ##
+ ```
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+  ```
+ 
+## Load fixture ##
+```
+php bin/console doctrine:fixtures:load --append
+```  
+ 
+## Danger zone
+If need to clean all tables in database
+```
+php bin/console doctrine:schema:drop --full-database --force
+```
+
+# Resources #
+
+## SF4 best practice ##
+https://symfony.com/doc/current/best_practices.html

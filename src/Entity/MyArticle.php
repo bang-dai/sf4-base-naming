@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MyArticleRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class MyArticle
 {
@@ -72,5 +73,14 @@ class MyArticle
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    /**
+     * Triggered on insert
+     * @ORM\PrePersist()
+     */
+    public function onPrePersist()
+    {
+        $this->setCreatedAt(new \DateTime());
     }
 }
