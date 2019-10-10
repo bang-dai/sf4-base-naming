@@ -1,0 +1,1 @@
+FROM front:7.2

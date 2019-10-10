@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+    php:
+        cap_add:
+          - NET_ADMIN
+        container_name: php_base
+        build: ./config/docker
+        ports:
+            - 9100:9100
+        external_links:
+            - mysql
+        volumes:
+            - .:/var/www/base-structure
+            - ./config/docker/base-structure.conf:/usr/local/etc/php-fpm.d/base-structure.conf
+            - /var/run/php7-fpm/:/var/run/php7-fpm/
+            - /home/dev/.composer:/home/dev/.composer
+        working_dir: /var/www/base-structure
+        networks:
+            - common
+        extra_hosts:
+            - "nrj-prd-srv-pkg:10.16.7.2"
+        tty: true
+networks:
+    common:
+        external:
+            name : common
