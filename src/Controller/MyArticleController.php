@@ -25,13 +25,18 @@ class MyArticleController extends AbstractController
 
     /**
      * @return Response
-     * @Route("/create-and-list", name="my_article_create_and_list", methods={"GET"})
+     * @Route("/create-and-list", name="my_article_create_and_list", methods={"GET"}, condition="'dev' === '%kernel.environment%'")
      */
-    public function createAndList(): Response
+    public function createAndList(Request $request): Response
     {
+        $myArticle = new MyArticle();
+        $form = $this->createForm(MyArticleType::class, $myArticle);
+        $form->handleRequest($request);
+
         $myArticles = $this->myArticleService->getArticles();
         return $this->render('my_article/create_and_list.html.twig', [
-           'articles' => $myArticles
+            'articles' => $myArticles,
+            'form' => $form->createView()
         ]);
     }
 

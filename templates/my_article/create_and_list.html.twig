@@ -3,7 +3,41 @@
 {% block title %}Hello MyArticleController!{% endblock %}
 
 {% block body %}
-    {% for article in articles %}
-        {% set new_title = article.title %}
-    {% endfor %}
+    <div class="row">
+        <div class="col-6">
+            <h2>List of article</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>CreatedAt</th>
+                    <th>actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for my_article in articles %}
+                    <tr>
+                        <td>{{ my_article.id }}</td>
+                        <td>{{ my_article.title }}</td>
+                        <td>{{ my_article.content }}</td>
+                        <td>{{ my_article.createdAt ? my_article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>
+                            <a href="{{ path('my_article_show', {'id': my_article.id}) }}">show</a>
+                            <a href="{{ path('my_article_edit', {'id': my_article.id}) }}">edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6">
+            {% embed "blocs/_my_article_form.html.twig" with {'articles': articles} %}{% endembed %}
+        </div>
+    </div>
 {% endblock %}

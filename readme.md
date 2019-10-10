@@ -6,6 +6,7 @@ This project is just a sample to plan convention naming and code for PHP symfony
 ## Parameters ##
 * /config/services.yaml + .env file
 * subdir for all parameters in /config/parameters/*.yaml
+* variable naming: my_var (snake_case)
 
 ## Naming yaml file ##
 Use Snake Case
@@ -27,6 +28,10 @@ Use Snake Case
 ## Controllers ##
 * Thin controller using services
 * Inject service in constructor
+* Use annotation for routing and limit by environment 
+ ```
+(condition="'dev' === '%kernel.environment%'")
+ ```
 * Don't Use Annotations to Configure the Controller Template
 
 The @Template annotation is useful, but also involves some magic. Moreover, most of the time @Template is used without any parameters, which makes it more difficult to know which template is being rendered. It also hides the fact that a controller should always return a Response object.
