@@ -25,6 +25,9 @@ Use Snake Case
 ## Naming PHP classes ##
 * PascalCase
 
+## Private or Protected property ##
+* Use private first and if needed, change to protected
+
 ## Controllers ##
 * Thin controller using services
 * Inject service in constructor
@@ -44,12 +47,20 @@ The @Template annotation is useful, but also involves some magic. Moreover, most
 Separate database query (ORM/ODM) in this service.
 * Naming : MyArticleRepository
 
+## Make form, entity and command ##
+ ```
+php bin/console make:form
+php bin/console make:entity
+php bin/console make:command
+ ```
+
 ## Form ##
 All form separate in EntityType, example:
 * MyArticleType
 
 ## Command ##
-Command name in bin/console always in minus and prefix, that organize the command list to easily research, example:
+Command name in bin/console always in minus and prefix with "app:"
+That organize the command list to easily research, example:
  ```
 php bin/console app:create-my-article
  ```
