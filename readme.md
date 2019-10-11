@@ -48,6 +48,22 @@ Separate database query (ORM/ODM) in this service.
 All form separate in EntityType, example:
 * MyArticleType
 
+## Command ##
+Command name in bin/console always in minus and prefix, that organize the command list to easily research, example:
+ ```
+php bin/console app:create-my-article
+ ```
+
+## API controllers ##
+Separate Controller in folder, example /src/Controller/API.
+
+Use FosRest and Route/SWG annotation with right HTTP Methods:
+* GET (get ressources with 200 reponse)
+* POST (create a new ressource with 201 response)
+* PUT (update entire resource with 200/204 response)
+* PATCH (update partial resource with 200/204 response)
+* DELETE (delete resource with 200/204 response: no content)
+
 # Twig #
 
 ## Naming ##

@@ -1,0 +1,46 @@
+# Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
+# TUTO : https://www.thinktocode.com/2018/03/26/symfony-4-rest-api-part-1-fosrestbundle/
+fos_rest:
+  param_fetcher_listener:  true
+  allowed_methods_listener:  true
+  #    routing_loader: true
+  view:
+    view_response_listener:  true
+    formats: { json: true, xml: false, rss: false }
+  #    exception:
+  #        codes:
+  #            App\Exception\ExceptionListener: 403
+  #        messages:
+  #            App\Exception\MyException: Forbidden area.
+  #    format_listener:
+  #        rules:
+  #            - { path: ^/api, prefer_extension: true, fallback_format: json, priorities: [ json, html ] }
+  exception:
+    exception_controller: 'fos_rest.exception.controller:showAction'
+    codes:
+      Symfony\Component\Routing\Exception\ResourceNotFoundException: 404
+      Doctrine\ORM\EntityNotFoundException: 404
+      LogicException: 400
+      DomainException: 400
+      #App\Exception\ExceptionListener: 302
+      #        messages:
+      #            Doctrine\ORM\EntityNotFoundException: true
+      #            LogicException: true
+      #            DomainException: true
+      #App\Exception\ExceptionListener: true
+  routing_loader:
+    prefix_methods: false
+    default_format: json
+    include_format: false
+  body_converter:
+    enabled: true
+    validate: true
+    validation_errors_argument: violations
+  body_listener:
+    enabled: true
+  serializer:
+    serialize_null: true
+  format_listener:
+    rules:
+      - { path: ^/api, prefer_extension: true, fallback_format: json, priorities: [ json, html ] }
+      - { path: ^/, stop: true }
